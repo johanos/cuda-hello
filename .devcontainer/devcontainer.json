@@ -1,0 +1,23 @@
+{
+  "name": "CUDA Development",
+ "build": {
+    // Path to the build context (parent folder where the Dockerfile lives)
+    "context": "..",
+    // Relative path (from the context) to the Dockerfile. Keep the filename exact (case-sensitive).
+    "dockerfile": "../Dockerfile"
+  },
+  "runArgs": ["--gpus", "all"],
+  "mounts": ["source=${localWorkspaceFolder},target=/workspace,type=bind"],
+  "workspaceFolder": "/workspace",
+  "customizations": {
+      "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "xaver.clang-format"
+      ]
+    }
+  },
+  "remoteUser": "root"
+
+}

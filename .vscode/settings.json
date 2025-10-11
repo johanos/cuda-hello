@@ -1,0 +1,59 @@
+{
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "clangd.path": "clangd",
+  "clangd.arguments": [
+    "--compile-commands-dir=/workspace",
+    "--enable-config",
+    "--header-insertion=never",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "-j=8"
+  ],
+  "C_Cpp.default.configurationProvider": "llvm-vs-code-extensions.vscode-clangd",
+  "files.associations": {
+    "*.template": "html",
+    "*.data": "data",
+    "*.cu": "cpp",
+    "*.cuh": "cpp",
+    "cmath": "cpp",
+    "*.inl": "cpp"
+  },
+  "editor.formatOnSave": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true
+  },
+  "[cuda]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true
+  },
+  "clangd.formatting": true,
+  "clang-format.style": "file",
+  "clang-format.language.cuda.enable": true,
+  "clang-format.language.cuda.style": "file",
+  "clang-tidy.checks": "*",
+  "clang-tidy.path": "clang-tidy",
+  "clang-tidy.buildPath": "/workspace",
+  "clang-tidy.fixonsave": true,
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "*.decorator": "#c586c0",
+      "*.global": "#4ec9b0",
+      "*.local": "#9cdcfe",
+      "*.parameter": "#9cdcfe",
+      "*.namespace": "#4ec9b0",
+      "*.type": "#4ec9b0",
+      "*.class": "#4ec9b0",
+      "*.enum": "#4ec9b0",
+      "*.struct": "#4ec9b0",
+      "*.typeParameter": "#4ec9b0",
+      "*.function": "#dcdcaa",
+      "*.method": "#dcdcaa",
+      "*.variable": "#9cdcfe",
+      "*.field": "#9cdcfe",
+      "*.property": "#9cdcfe",
+      "*.enumMember": "#4fc1ff"
+    }
+  }
+}
