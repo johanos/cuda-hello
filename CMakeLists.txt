@@ -11,9 +11,15 @@ set(CMAKE_CUDA_SEPARABLE_COMPILATION ON)
 # Target RTX 50xx GPU
 set(CMAKE_CUDA_ARCHITECTURES 90)
 
-# Find CUDA package
+# Find required packages
 find_package(CUDAToolkit REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
 
-# Add CUDA include directories
+add_executable(gaussian_blur src/main.cpp)
 
-add_executable(hello hello.cu)
+target_link_libraries(gaussian_blur 
+    PRIVATE 
+    OpenGL::GL
+    glfw
+)

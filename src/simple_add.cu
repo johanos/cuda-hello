@@ -3,12 +3,13 @@
 
 // Kernel function to add the elements of two arrays
 __global__ void add(int n, float *x, float *y) {
-  for (int i = 0; i < n; i++) {
+  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int stride = blockDim.x * gridDim.x;
+  for (int i = index; i < n; i += stride)
     y[i] = x[i] + y[i];
-  }
 }
 
-__host__ int main(void) {
+int main(void) {
   int N = 1 << 20;
   float *x, *y;
 
@@ -22,8 +23,14 @@ __host__ int main(void) {
     y[i] = 2.0f;
   }
 
+  // Prefetch the x and y arrays to the GPU
+  cudaMemPrefetchAsync(x, N * sizeof(float), 0, 0);
+  cudaMemPrefetchAsync(y, N * sizeof(float), 0, 0);
+
   // Run kernel on 1M elements on the GPU
-  add<<<1, 1>>>(N, x, y);
+  int threadsPerBlock = 256;
+  int blocks = (N + threadsPerBlock - 1) / threadsPerBlock;
+  add<<<blocks, threadsPerBlock>>>(N, x, y);
 
   // Wait for GPU to finish before accessing on host
   cudaDeviceSynchronize();
