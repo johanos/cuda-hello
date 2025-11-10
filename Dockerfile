@@ -32,6 +32,11 @@ RUN apt-get update && apt-get install -y wget gnupg ca-certificates \
     xorg-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Intall OpenCV
+RUN apt-get update && apt-get install -y \
+    libopencv-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Add Nsight Systems to PATH
 ENV PATH=/opt/nvidia/nsight-systems/2025.3.2/bin:$PATH
 

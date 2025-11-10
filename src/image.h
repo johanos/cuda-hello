@@ -1,24 +1,28 @@
 #ifndef IMAGE_H
 #define IMAGE_H
+#include <opencv2/core/matx.hpp>
+#include <opencv2/opencv.hpp>
 #include <string>
+
 using namespace std;
 
 class Image {
-  private:
-    int width;
-    int height;
-    unsigned char* data;
+private:
+  int width;
+  int height;
+
 public:
-    Image(int width, int height);
-    ~Image();
+  cv::Mat data;
+  Image(int width, int height, cv::Mat data);
+  ~Image();
 
-    void setPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b);
-    void getPixel(int x, int y, unsigned char &r, unsigned char &g, unsigned char &b) const;
+  void setPixel(int row, int col, cv::Vec3b color);
+  void getPixel(int row, int col, cv::Vec3b &color) const;
 
-    int getWidth() const;
-    int getHeight() const;
+  int getWidth() const;
+  int getHeight() const;
 
-    static Image* loadFromFile(const string* filename);
-    void saveToFile(const string* filename) const;
+  static Image *loadFromFile(const string &filename);
+  void saveToFile(const string *filename) const;
 };
 #endif // IMAGE_H

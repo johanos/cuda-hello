@@ -1,26 +1,37 @@
 #include "image.h"
+#include <iostream>
+#include <opencv2/core/matx.hpp>
+#include <opencv2/opencv.hpp>
 #include <string>
-using namespace std;
+using namespace cv;
 
-Image::Image(int width, int height) : width(width), height(height) {
-    data = new unsigned char[width * height * 4]; // RGBA
+Image::Image(int width, int height, Mat data) : width(width), height(height) {
+  this->data = data;
 }
+
+int Image::getWidth() const { return width; }
+
+int Image::getHeight() const { return height; }
 
 Image::~Image() {
-    delete[] data;
+  // cv::Mat handles its own memory management
 }
 
-
-int Image::getWidth() const {
-    return width;
+void Image::setPixel(int row, int col, cv::Vec3b color) {
+  data.at<cv::Vec3b>(row, col) = color;
 }
 
-int Image::getHeight() const {
-    return height;
+void Image::getPixel(int row, int col, cv::Vec3b &color) const {
+  color = data.at<cv::Vec3b>(row, col);
 }
 
-
-Image* Image::loadFromFile(const string *filename) {
-    // Placeholder for image loading logic
+Image *Image::loadFromFile(const string &filename) {
+  // Load as 3-channel BGR (ignores any alpha), then convert to RGB.
+  Mat img = cv::imread(filename, cv::IMREAD_COLOR);
+  if (img.empty()) {
+    cerr << "Failed to load image: " << filename << endl;
     return nullptr;
+  }
+
+  return new Image(img.cols, img.rows, img);
 }
