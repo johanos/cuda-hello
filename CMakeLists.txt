@@ -23,6 +23,8 @@ find_package(OpenCV REQUIRED)
 add_executable(gaussian_blur 
     src/main.cpp
     src/image.cpp
+    src/gaussian_blur_cuda.cu
+    src/gaussian_blur_cpu.cpp
 )
 
 # Manually add the base include path for OpenCV 4 on Linux/Unix systems.

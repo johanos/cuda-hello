@@ -16,8 +16,13 @@ public:
   Image(int width, int height, cv::Mat data);
   ~Image();
 
-  void setPixel(int row, int col, cv::Vec3b color);
-  void getPixel(int row, int col, cv::Vec3b &color) const;
+  template <typename T> void setPixel(int row, int col, const T &color) {
+    data.at<T>(row, col) = color;
+  }
+
+  template <typename T> void getPixel(int row, int col, T &color) const {
+    color = data.at<T>(row, col);
+  }
 
   int getWidth() const;
   int getHeight() const;
